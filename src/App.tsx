@@ -4,22 +4,25 @@ import CardFront from "./components/CardFront.tsx";
 import CardBack from "./components/CardBack.tsx";
 
 export default function App() {
-  // true: front side
-  const [count, setCount] = useState<boolean>(true);
+  const [isFront, setIsFront] = useState<boolean>(true);
 
   function FlipCardFunc() {
-    count ? setCount(false) : setCount(true);
+    setIsFront(!isFront)
   }
 
   return (
     <Container>
       <h1>Card Flip</h1>
-      <Card
-        onClick={FlipCardFunc}
-        $count = {count}
-      >
-          {count ? <CardFront/> : <CardBack/>}
-      </Card>
+      <div>
+        <Card
+          onClick={FlipCardFunc}
+          $isFront = {isFront}
+        >
+          {isFront ? <CardFront/> : <CardBack/>}
+          {/*<CardFront/>*/}
+          {/*<CardBack/>*/}
+        </Card>
+      </div>
       <p>
         Click and Flip!
       </p>
@@ -36,17 +39,17 @@ const Container = styled.div `
   text-align: center;
 `
 
-const Card = styled.div<{ $count: boolean }> `
+const Card = styled.div<{ $isFront: boolean }> `
   aspect-ratio: 1 / 1.58;
   background: #fff;
   border-radius: 3%;
   padding: 5% 7%;
   color: slategray;
   cursor: pointer;
+  
+  transition: transform 0.3s;
+  perspective: 800px;
+  transform: ${props => props.$isFront ? "rotateY(0deg)" : "rotateY(180deg)" };
+  transform-style: preserve-3d;
+  //backface-visibility: hidden;
 `
-
-// const Card = styled.div<{ $count: boolean }>`
-  //width: 100%;
-  //height: 100%;
-  // background: ${(props) => (props.$count ? "#82cbac" : "pink")};
-// `;
