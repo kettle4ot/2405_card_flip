@@ -1,8 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
+import CardFront from "./components/CardFront.tsx";
+import CardBack from "./components/CardBack.tsx";
 
 export default function App() {
-  const [count, setCount] = useState<boolean>(false);
+  // true: front side
+  const [count, setCount] = useState<boolean>(true);
 
   function FlipCardFunc() {
     count ? setCount(false) : setCount(true);
@@ -15,7 +18,7 @@ export default function App() {
         onClick={FlipCardFunc}
         $count = {count}
       >
-        {count ? "앞면" : "뒷면"}
+          {count ? <CardFront/> : <CardBack/>}
       </Card>
       <p>
         Click and Flip!
@@ -28,10 +31,22 @@ const Container = styled.div `
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-width: 320px;
+  min-width: 280px;
   overflow: hidden;
+  text-align: center;
 `
 
-const Card = styled.div<{ $count: boolean }>`
-  background: ${(props) => (props.$count ? "green" : "pink")}
-`;
+const Card = styled.div<{ $count: boolean }> `
+  aspect-ratio: 1 / 1.58;
+  background: #fff;
+  border-radius: 3%;
+  padding: 5% 7%;
+  color: slategray;
+  cursor: pointer;
+`
+
+// const Card = styled.div<{ $count: boolean }>`
+  //width: 100%;
+  //height: 100%;
+  // background: ${(props) => (props.$count ? "#82cbac" : "pink")};
+// `;
