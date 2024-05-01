@@ -13,16 +13,18 @@ export default function App() {
   return (
     <Container>
       <h1>Card Flip</h1>
-      <div>
+      <CardWrap
+        $isFront = {isFront}
+      >
         <Card
           onClick={FlipCardFunc}
           $isFront = {isFront}
         >
-          {isFront ? <CardFront/> : <CardBack/>}
-          {/*<CardFront/>*/}
-          {/*<CardBack/>*/}
+          {/*{isFront ? <CardFront/> : <CardBack/>}*/}
+          <CardFront/>
+          <CardBack/>
         </Card>
-      </div>
+      </CardWrap>
       <p>
         Click and Flip!
       </p>
@@ -39,6 +41,13 @@ const Container = styled.div `
   text-align: center;
 `
 
+const CardWrap = styled.div<{ $isFront: boolean }>`
+  // transition: transform 0.8s;
+  // perspective: 800px;
+  // transform: ${props => props.$isFront ? "rotateY(0deg)" : "rotateY(180deg)" };
+  // transform-style: preserve-3d;
+`
+
 const Card = styled.div<{ $isFront: boolean }> `
   aspect-ratio: 1 / 1.58;
   background: #fff;
@@ -47,9 +56,22 @@ const Card = styled.div<{ $isFront: boolean }> `
   color: slategray;
   cursor: pointer;
   
-  transition: transform 0.3s;
+  transition: transform 0.5s;
   perspective: 800px;
   transform: ${props => props.$isFront ? "rotateY(0deg)" : "rotateY(180deg)" };
   transform-style: preserve-3d;
-  //backface-visibility: hidden;
+  
+  > * {
+    backface-visibility: hidden;
+  }
+  
+  .card-front {
+    height: ${props => props.$isFront ? "100%" : "0" };
+    visibility: ${props => props.$isFront ? "visible" : "hidden" };
+  }
+  
+  .card-back {
+    height: ${props => props.$isFront ? "0" : "100%" };
+    visibility: ${props => props.$isFront ? "hidden" : "visible" };
+  }
 `

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export default function CardFront() {
   return (
-    <FrontCont>
+    <FrontCont className="card-front">
       <FrontTop>
         <CardTitle>BlahBlahCard</CardTitle>
         <Chip></Chip>
@@ -19,7 +19,7 @@ const FrontCont = styled.div `
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  //height: 100%;
   font-size: 120%;
 `
 const FrontTop = styled.div`
